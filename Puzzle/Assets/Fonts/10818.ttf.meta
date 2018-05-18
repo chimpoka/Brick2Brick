@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: d2d7f74d3a2b29049883897c163abbea
+timeCreated: 1506678204
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Razer BlackWidow
+  fontNames:
+  - Razer BlackWidow
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

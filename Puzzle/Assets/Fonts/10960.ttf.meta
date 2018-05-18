@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 50b3cfbc61f8c964c8ee6accffbae6cb
+timeCreated: 1511609109
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Supermolot
+  fontNames:
+  - Supermolot
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: cf32e7c9660034b47ad591cc66fad611, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
