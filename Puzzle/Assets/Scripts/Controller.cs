@@ -192,6 +192,8 @@ public class Controller : MonoBehaviour
                 LevelStars[i].Add(0);
         }
 
+        GameObject.FindGameObjectWithTag("MainMenu").GetComponent<MainMenu>().LoadMainMenu();
+
         //CompletedLevels = new int[3];
     }
 

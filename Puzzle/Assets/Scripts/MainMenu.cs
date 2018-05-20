@@ -63,12 +63,23 @@ public class MainMenu : MonoBehaviour
         m_MainMenuWindow.GetComponent<Animator>().SetBool("Opened", true);
     }
 
+    public void LoadMainMenu()
+    {
+        DataStore.LoadGame();
+        UpdateCurrentLevels();
+    }
+
     private void Start()
     {
+        if (Controller.Instance.LevelTurnsList != null)
+        {
+            DataStore.LoadGame();
+            UpdateCurrentLevels();
+        }
         //DataStore.LoadHighScore();
-        DataStore.LoadGame();
+
         //UpdateHighScore();
-        UpdateCurrentLevels();
+
         //UpdateDifficultyAndLevelValues(Constants.EASY, 1);
 
         //if (Controller.Instance.NormalButtonEnabled == 0)
