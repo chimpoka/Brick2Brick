@@ -26,7 +26,7 @@ public static class DataStore
 
     static public void LoadOptions()
     {
-        Controller.Instance.Audio.MusicVolume = PlayerPrefs.GetFloat(MUSIC_VOLUME_KEY, 0.2f);
+        Controller.Instance.Audio.MusicVolume = PlayerPrefs.GetFloat(MUSIC_VOLUME_KEY, 0.4f);
         Controller.Instance.Audio.SfxVolume = PlayerPrefs.GetFloat(SOUND_VOLUME_KEY, 1f);
     }
 
@@ -131,6 +131,11 @@ public static class DataStore
             PlayerPrefs.SetInt("LevelStarsNormal" + i, 0);
         for (int i = 0; i < levelStars[Constants.HARD].Count; i++)
             PlayerPrefs.SetInt("LevelStarsHard" + i, 0);
+
+        PlayerPrefs.SetFloat(MUSIC_VOLUME_KEY, 0.4f);
+        PlayerPrefs.SetFloat(SOUND_VOLUME_KEY, 1f);
+
+        PlayerPrefs.Save();
     }
 
     //static public void SaveHighScore()

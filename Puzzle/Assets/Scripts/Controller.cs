@@ -657,7 +657,7 @@ public class Controller : MonoBehaviour
     private void OnApplicationQuit()
     {
         DataStore.SaveGame();
-        DataStore.SaveNewGame();
+        //DataStore.SaveNewGame();
     }
 
     #endregion
