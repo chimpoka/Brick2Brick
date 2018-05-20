@@ -6,13 +6,13 @@ using UnityEngine;
 
 public enum GameMode { Normal, Endless}
 
-[System.Serializable]
-public class HighScore
-{
-    public string Name;
-    public int ScoreValue;
-    public int Difficulty;
-}
+//[System.Serializable]
+//public class HighScore
+//{
+//    public string Name;
+//    public int ScoreValue;
+//    public int Difficulty;
+//}
 
 public class Controller : MonoBehaviour 
 {
@@ -50,11 +50,11 @@ public class Controller : MonoBehaviour
 
     public GameMode Mode;
 
-    public List<List<HighScore>> HighScoreValues;
+    //public List<List<HighScore>> HighScoreValues;
 
-    public int HighScoreDifficultiesNumber = 3;
+    //public int HighScoreDifficultiesNumber = 3;
 
-    public int HighScoreValuesNumber = 3;
+    //public int HighScoreValuesNumber = 3;
 
    // public int NormalButtonEnabled;
 
@@ -72,7 +72,7 @@ public class Controller : MonoBehaviour
 
     public List<List<int>> LevelStars;
 
-    private int m_turns;
+   // private int m_turns;
 
     private int m_tokensCount;
 
@@ -157,15 +157,15 @@ public class Controller : MonoBehaviour
 			TokensByTypes.Add (new List<Token> ());
 		}
 
-        HighScoreValues = new List<List<HighScore>>();
-        for (int i = 0; i < HighScoreDifficultiesNumber; i++)
-        {
-            HighScoreValues.Add(new List<HighScore>());
-            for (int j = 0; j < HighScoreValuesNumber; j++)
-            {
-                HighScoreValues[i].Add(new HighScore());
-            }
-        }
+        //HighScoreValues = new List<List<HighScore>>();
+        //for (int i = 0; i < HighScoreDifficultiesNumber; i++)
+        //{
+        //    HighScoreValues.Add(new List<HighScore>());
+        //    for (int j = 0; j < HighScoreValuesNumber; j++)
+        //    {
+        //        HighScoreValues[i].Add(new HighScore());
+        //    }
+        //}
 
         Audio.SourceMusic = gameObject.AddComponent<AudioSource>();
         Audio.SourceRandomPitchSFX = gameObject.AddComponent<AudioSource>();
@@ -305,8 +305,6 @@ public class Controller : MonoBehaviour
             HUD.Instance.PlayAnimationChangeTurnsValue();
         }
 
-
-
         if (Mode == GameMode.Normal)
         {
             if (IsAllTokensConnected())
@@ -326,108 +324,108 @@ public class Controller : MonoBehaviour
             }
             DataStore.SaveGame();
         }
-        else if (Mode == GameMode.Endless)
-        {
-            if (IsAllTokensConnected())
-            {
-                //Audio.PlaySound("Victory");
+        //else if (Mode == GameMode.Endless)
+        //{
+        //    if (IsAllTokensConnected())
+        //    {
+        //        //Audio.PlaySound("Victory");
 
-                //if (Level.Turns > 0)
-                //{
-                //    Level.Turns--;
-                //    HUD.Instance.PlayAnimationChangeTurnsValue();
-                //}
+        //        //if (Level.Turns > 0)
+        //        //{
+        //        //    Level.Turns--;
+        //        //    HUD.Instance.PlayAnimationChangeTurnsValue();
+        //        //}
 
-                // XMLManager.Instance.SaveData(Difficulty.ToString(), CurrentLevel, Level.MaxTurns - Level.Turns, Level.MaxTurns);
-                // XMLManager.Instance.SaveData2(Level.FieldSize, Level.FreeSpace, Level.TokenTypes, Level.MaxTurns - Level.Turns, Level.MaxTurns);
+        //        // XMLManager.Instance.SaveData(Difficulty.ToString(), CurrentLevel, Level.MaxTurns - Level.Turns, Level.MaxTurns);
+        //        // XMLManager.Instance.SaveData2(Level.FieldSize, Level.FreeSpace, Level.TokenTypes, Level.MaxTurns - Level.Turns, Level.MaxTurns);
 
-                HUD.Instance.UpdateLevelBonusValue(Score.LevelScoreBonus);
-                HUD.Instance.CountScore(Level.Turns + Score.LevelScoreBonus);
+        //        HUD.Instance.UpdateLevelBonusValue(Score.LevelScoreBonus);
+        //        HUD.Instance.CountScore(Level.Turns + Score.LevelScoreBonus);
 
-                if (CurrentLevel == MaxLevel)
-                {
-                    // Open new difficulty
-                    if (Difficulty == Constants.EASY)
-                    {
-                        //CurrentLevelEasy = 1;
-                        //NormalButtonEnabled = 1;
-                    }
-                    else if (Difficulty == Constants.NORMAL)
-                    {
-                        //CurrentLevelNormal = 1;
-                        //HardButtonEnabled = 1;
-                    }
-                    else if (Difficulty == Constants.HARD)
-                    {
-                        //CurrentLevelHard = 1;
-                    }
+        //        if (CurrentLevel == MaxLevel)
+        //        {
+        //            // Open new difficulty
+        //            if (Difficulty == Constants.EASY)
+        //            {
+        //                //CurrentLevelEasy = 1;
+        //                //NormalButtonEnabled = 1;
+        //            }
+        //            else if (Difficulty == Constants.NORMAL)
+        //            {
+        //                //CurrentLevelNormal = 1;
+        //                //HardButtonEnabled = 1;
+        //            }
+        //            else if (Difficulty == Constants.HARD)
+        //            {
+        //                //CurrentLevelHard = 1;
+        //            }
 
-                    // Show windows
-                    /*if (IsNewHighScore(Score.CurrentScore, Difficulty))
-                        HUD.Instance.ShowNewHighScoreWindow();
-                    else*/
-                    if (Difficulty == Constants.EASY)
-                        HUD.Instance.ShowWinGameWindow();
-                    else if (Difficulty == Constants.NORMAL)
-                        HUD.Instance.ShowWinGameWindow();
-                    else if (Difficulty != Constants.HARD)
-                        HUD.Instance.ShowWinGameLastDifficultyWindow();
+        //            // Show windows
+        //            /*if (IsNewHighScore(Score.CurrentScore, Difficulty))
+        //                HUD.Instance.ShowNewHighScoreWindow();
+        //            else*/
+        //            if (Difficulty == Constants.EASY)
+        //                HUD.Instance.ShowWinGameWindow();
+        //            else if (Difficulty == Constants.NORMAL)
+        //                HUD.Instance.ShowWinGameWindow();
+        //            else if (Difficulty != Constants.HARD)
+        //                HUD.Instance.ShowWinGameLastDifficultyWindow();
 
-                    EndGame();
-                }
-                else
-                {
-                    HUD.Instance.ShowLevelCompletedWindow();
-                    CurrentLevel++;
-                    DataStore.SaveGame();
-                    Destroy(Field.gameObject);
-                }
-            }
-            else
-            {
-                //if (Level.Turns > 0)
-                //{
-                //    Level.Turns--;
-                //    HUD.Instance.PlayAnimationChangeTurnsValue();
-                //}
+        //            EndGame();
+        //        }
+        //        else
+        //        {
+        //            HUD.Instance.ShowLevelCompletedWindow();
+        //            CurrentLevel++;
+        //            DataStore.SaveGame();
+        //            Destroy(Field.gameObject);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        //if (Level.Turns > 0)
+        //        //{
+        //        //    Level.Turns--;
+        //        //    HUD.Instance.PlayAnimationChangeTurnsValue();
+        //        //}
 
-                if (Level.Turns <= 0)
-                {
-                    if (IsNewHighScore(Score.CurrentScore, Difficulty))
-                        HUD.Instance.ShowNewHighScoreWindow();
-                    else
-                        HUD.Instance.ShowEndGameWindow();
+        //        if (Level.Turns <= 0)
+        //        {
+        //            if (IsNewHighScore(Score.CurrentScore, Difficulty))
+        //                HUD.Instance.ShowNewHighScoreWindow();
+        //            else
+        //                HUD.Instance.ShowEndGameWindow();
 
-                    EndGame();
-                }
-            }
-        }
+        //            EndGame();
+        //        }
+        //    }
+        //}
     }
 
-    public void InitializeLevel()
-	{
-        TokenGameObjects = new List<GameObject>();
-        TokenPositions = new List<Vector3>();
+ //   public void InitializeLevel()
+	//{
+ //       TokenGameObjects = new List<GameObject>();
+ //       TokenPositions = new List<Vector3>();
 
-        Level = new LevelParameters(CurrentLevel);
-        HUD.Instance.UpdateDifficultyValue(Difficulty);
-        HUD.Instance.UpdateLevelValue(CurrentLevel);
+ //       Level = new LevelParameters(CurrentLevel);
+ //       HUD.Instance.UpdateDifficultyValue(Difficulty);
+ //       HUD.Instance.UpdateLevelValue(CurrentLevel);
 
-        if (CurrentLevel == 1)
-        {
-            Score.CurrentScore = 0;
-        }
+ //       if (CurrentLevel == 1)
+ //       {
+ //           Score.CurrentScore = 0;
+ //       }
 
-        m_turns = Level.Turns;
+ //       m_turns = Level.Turns;
 
-		TokensByTypes = new List<List<Token>> ();
-		for (int i = 0; i < Level.TokenTypes; i++) 
-		{
-			TokensByTypes.Add (new List<Token> ());
-		}
+	//	TokensByTypes = new List<List<Token>> ();
+	//	for (int i = 0; i < Level.TokenTypes; i++) 
+	//	{
+	//		TokensByTypes.Add (new List<Token> ());
+	//	}
 
-		Field = Field.Create (Level.FieldSize, Level.FreeSpace);
-    }
+	//	Field = Field.Create (Level.FieldSize, Level.FreeSpace);
+ //   }
 
     public void InitializeLevelNormalMode()
     {
@@ -455,41 +453,41 @@ public class Controller : MonoBehaviour
         Level.SetTurns(CurrentLevel, Difficulty);
     }
 
-    public void NewGame()
-    {
-        //if (Difficulty == Constants.EASY)
-        //    CurrentLevelEasy = 1;
-        //else if (Difficulty == Constants.NORMAL)
-        //    CurrentLevelNormal = 1;
-        //else if (Difficulty == Constants.HARD)
-        //    CurrentLevelHard = 1;
+    //public void NewGame()
+    //{
+    //    //if (Difficulty == Constants.EASY)
+    //    //    CurrentLevelEasy = 1;
+    //    //else if (Difficulty == Constants.NORMAL)
+    //    //    CurrentLevelNormal = 1;
+    //    //else if (Difficulty == Constants.HARD)
+    //    //    CurrentLevelHard = 1;
 
-        CurrentLevel = 1;
-        Score.CurrentScore = 0;
-        DataStore.SaveGame();
+    //    CurrentLevel = 1;
+    //    Score.CurrentScore = 0;
+    //    DataStore.SaveGame();
 
-        if (Field != null)
-        {
-            Destroy(Field.gameObject);
-        }
+    //    if (Field != null)
+    //    {
+    //        Destroy(Field.gameObject);
+    //    }
 
-        InitializeLevel();
-        HUD.Instance.PlayAnimationChangeTurnsValue();
-    }
+    //    InitializeLevel();
+    //    HUD.Instance.PlayAnimationChangeTurnsValue();
+    //}
 
-    public void RestartLevel()
-    {
-        int scoreDecrease = Level.FieldSize - 1;
-        if ((Score.CurrentScore - scoreDecrease) > 0)
-        {
-            Destroy(Field.gameObject);
-            InitializeLevel();
-            Score.CurrentScore -= scoreDecrease;
-            HUD.Instance.UpdateScoreDecreaseValue(scoreDecrease);
-            DataStore.SaveGame();
-            //HUD.Instance.PlayAnimationChangeTurnsValue();
-        }
-    }
+    //public void RestartLevel()
+    //{
+    //    int scoreDecrease = Level.FieldSize - 1;
+    //    if ((Score.CurrentScore - scoreDecrease) > 0)
+    //    {
+    //        Destroy(Field.gameObject);
+    //        InitializeLevel();
+    //        Score.CurrentScore -= scoreDecrease;
+    //        HUD.Instance.UpdateScoreDecreaseValue(scoreDecrease);
+    //        DataStore.SaveGame();
+    //        //HUD.Instance.PlayAnimationChangeTurnsValue();
+    //    }
+    //}
 
     public void UndoTurn()
     {
@@ -509,104 +507,104 @@ public class Controller : MonoBehaviour
         }
     }
 
-    public void AddHighScoreValue(int score, string name, int difficulty)
-    {
-        for (int i = 0; i < HighScoreValues[difficulty].Count; i++)
-        {
-            if (HighScoreValues[difficulty][i].ScoreValue < score)
-            {
-                Swap(ref HighScoreValues[difficulty][i].ScoreValue, ref score);
-                Swap(ref HighScoreValues[difficulty][i].Name, ref name);
-            }
-        }
-        DataStore.SaveHighScore();
+    //public void AddHighScoreValue(int score, string name, int difficulty)
+    //{
+    //    for (int i = 0; i < HighScoreValues[difficulty].Count; i++)
+    //    {
+    //        if (HighScoreValues[difficulty][i].ScoreValue < score)
+    //        {
+    //            Swap(ref HighScoreValues[difficulty][i].ScoreValue, ref score);
+    //            Swap(ref HighScoreValues[difficulty][i].Name, ref name);
+    //        }
+    //    }
+    //    DataStore.SaveHighScore();
 
 
-        //switch (difficulty)
-        //{
-        //    case DifficultyLevel.Easy:
-        //        for (int i = 0; i < HighScoreValues[0].Count; i++)
-        //        {
-        //            if (HighScoreValues[0][i].ScoreValue < score)
-        //            {
-        //                Swap(ref HighScoreValues[0][i].ScoreValue, ref score);
-        //                Swap(ref HighScoreValues[0][i].Name, ref name);
-        //            }
-        //        }
+    //    //switch (difficulty)
+    //    //{
+    //    //    case DifficultyLevel.Easy:
+    //    //        for (int i = 0; i < HighScoreValues[0].Count; i++)
+    //    //        {
+    //    //            if (HighScoreValues[0][i].ScoreValue < score)
+    //    //            {
+    //    //                Swap(ref HighScoreValues[0][i].ScoreValue, ref score);
+    //    //                Swap(ref HighScoreValues[0][i].Name, ref name);
+    //    //            }
+    //    //        }
 
-        //        break;
-        //    case DifficultyLevel.Normal:
-        //        for (int i = 0; i < HighScoreValues[1].Count; i++)
-        //        {
-        //            Debug.Log(HighScoreValues[1][i].ScoreValue);
-        //            if (HighScoreValues[1][i].ScoreValue < score)
-        //            {
-        //                Swap(ref HighScoreValues[1][i].ScoreValue, ref score);
-        //                Swap(ref HighScoreValues[1][i].Name, ref name);
-        //            }
-        //        }
-        //        break;
-        //    case DifficultyLevel.Hard:
-        //        for (int i = 0; i < HighScoreValues[2].Count; i++)
-        //        {
-        //            if (HighScoreValues[2][i].ScoreValue < score)
-        //            {
-        //                Swap(ref HighScoreValues[2][i].ScoreValue, ref score);
-        //                Swap(ref HighScoreValues[2][i].Name, ref name);
-        //            }
-        //        }
-        //        break;
-        //}
-        //DataStore.SaveHighScore();
-    }
+    //    //        break;
+    //    //    case DifficultyLevel.Normal:
+    //    //        for (int i = 0; i < HighScoreValues[1].Count; i++)
+    //    //        {
+    //    //            Debug.Log(HighScoreValues[1][i].ScoreValue);
+    //    //            if (HighScoreValues[1][i].ScoreValue < score)
+    //    //            {
+    //    //                Swap(ref HighScoreValues[1][i].ScoreValue, ref score);
+    //    //                Swap(ref HighScoreValues[1][i].Name, ref name);
+    //    //            }
+    //    //        }
+    //    //        break;
+    //    //    case DifficultyLevel.Hard:
+    //    //        for (int i = 0; i < HighScoreValues[2].Count; i++)
+    //    //        {
+    //    //            if (HighScoreValues[2][i].ScoreValue < score)
+    //    //            {
+    //    //                Swap(ref HighScoreValues[2][i].ScoreValue, ref score);
+    //    //                Swap(ref HighScoreValues[2][i].Name, ref name);
+    //    //            }
+    //    //        }
+    //    //        break;
+    //    //}
+    //    //DataStore.SaveHighScore();
+    //}
 
-    private void Swap<T>(ref T lhs, ref T rhs)
-    {
-        T temp;
-        temp = lhs;
-        lhs = rhs;
-        rhs = temp;
-    }
+    //private void Swap<T>(ref T lhs, ref T rhs)
+    //{
+    //    T temp;
+    //    temp = lhs;
+    //    lhs = rhs;
+    //    rhs = temp;
+    //}
 
-    public bool IsNewHighScore(int score, int difficulty)
-    {
-        for (int i = 0; i < HighScoreValues[difficulty].Count; i++)
-        {
-            if (HighScoreValues[difficulty][i].ScoreValue < score)
-                return true;
-        }
+    //public bool IsNewHighScore(int score, int difficulty)
+    //{
+    //    for (int i = 0; i < HighScoreValues[difficulty].Count; i++)
+    //    {
+    //        if (HighScoreValues[difficulty][i].ScoreValue < score)
+    //            return true;
+    //    }
 
-        return false;
+    //    return false;
 
-        //switch (difficulty)
-        //{
-        //    case DifficultyLevel.Easy:
-        //        for (int i = 0; i < HighScoreValues[0].Count; i++)
-        //        {
-        //            if (HighScoreValues[0][i].ScoreValue < score)
-        //                return true;
-        //        }
-        //        break;
-        //    case DifficultyLevel.Normal:
-        //        for (int i = 0; i < HighScoreValues[1].Count; i++)
-        //        {
-        //            if (HighScoreValues[1][i].ScoreValue < score)
-        //                return true;
-        //        }
-        //        break;
-        //    case DifficultyLevel.Hard:
-        //        for (int i = 0; i < HighScoreValues[2].Count; i++)
-        //        {
-        //            if (HighScoreValues[2][i].ScoreValue < score)
-        //                return true;
-        //        }
-        //        break;
-        //    default:
-        //        return false;
-        //}
-        //return false;  // mindless
+    //    //switch (difficulty)
+    //    //{
+    //    //    case DifficultyLevel.Easy:
+    //    //        for (int i = 0; i < HighScoreValues[0].Count; i++)
+    //    //        {
+    //    //            if (HighScoreValues[0][i].ScoreValue < score)
+    //    //                return true;
+    //    //        }
+    //    //        break;
+    //    //    case DifficultyLevel.Normal:
+    //    //        for (int i = 0; i < HighScoreValues[1].Count; i++)
+    //    //        {
+    //    //            if (HighScoreValues[1][i].ScoreValue < score)
+    //    //                return true;
+    //    //        }
+    //    //        break;
+    //    //    case DifficultyLevel.Hard:
+    //    //        for (int i = 0; i < HighScoreValues[2].Count; i++)
+    //    //        {
+    //    //            if (HighScoreValues[2][i].ScoreValue < score)
+    //    //                return true;
+    //    //        }
+    //    //        break;
+    //    //    default:
+    //    //        return false;
+    //    //}
+    //    //return false;  // mindless
 
-    }
+    //}
 
     private void EndGame()
     {
@@ -654,6 +652,12 @@ public class Controller : MonoBehaviour
         }
 
         return completedLevels;
+    }
+
+    private void OnApplicationQuit()
+    {
+        DataStore.SaveGame();
+        DataStore.SaveNewGame();
     }
 
     #endregion

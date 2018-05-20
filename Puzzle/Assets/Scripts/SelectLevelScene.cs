@@ -11,7 +11,7 @@ public class SelectLevelScene : MonoBehaviour
 
     private void Start()
     {
-        UpdadeContainerLength();
+        UpdateContainerLength();
         CreateButtons();
         Controller.Instance.MaxLevel = Controller.Instance.LevelTurnsList[Controller.Instance.Difficulty].Count;
     }
@@ -24,15 +24,21 @@ public class SelectLevelScene : MonoBehaviour
         {
             GameObject levelSelectButton = Instantiate(Resources.Load("Prefabs/SelectLevelButton")) as GameObject;
             levelSelectButton.GetComponentInChildren<Text>().text = (level + 1).ToString();
+            levelSelectButton.GetComponent<RectTransform>().localScale = new Vector3(Screen.width / 654.5f, Screen.width / 654.5f, Screen.width / 720f);
             ShowStars(level, difficulty, levelSelectButton);
         
             levelSelectButton.transform.SetParent(m_ButtonsContainer.transform);
         }
     }
 
-    private void UpdadeContainerLength()
+    private void UpdateContainerLength()
     {
         GridLayoutGroup GLG = m_ButtonsContainer.GetComponent<GridLayoutGroup>();
+       // GLG.padding = new RectOffset(Screen.width / 120, 0, Screen.height / 256, Screen.height / 256);
+       // GLG.cellSize = new Vector2 (Screen.width / 5.07f, Screen.height / 8.89f);
+       // GLG.spacing = new Vector2(0, Screen.height / 25.6f);
+        
+
         RectTransform RT = m_ButtonsContainer.GetComponent<RectTransform>();
         int difficulty = Controller.Instance.Difficulty;
 

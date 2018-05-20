@@ -15,39 +15,39 @@ public class MainMenu : MonoBehaviour
     [SerializeField]    
     private GameObject m_MainMenuWindow;
 
-    [SerializeField]
-    private GameObject m_HighScoreWindow;
+    //[SerializeField]
+    //private GameObject m_HighScoreWindow;
 
     [SerializeField]
     private GameObject m_OptionsWindow;
 
-    [SerializeField]
-    private GameObject m_CreateLevelWindow;
+    //[SerializeField]
+    //private GameObject m_CreateLevelWindow;
 
-    [SerializeField]
-    private GameObject[] m_highScoreObjectsEasy;
+    //[SerializeField]
+    //private GameObject[] m_highScoreObjectsEasy;
 
-    [SerializeField]
-    private GameObject[] m_highScoreObjectsNormal;
+    //[SerializeField]
+    //private GameObject[] m_highScoreObjectsNormal;
 
-    [SerializeField]
-    private GameObject[] m_highScoreObjectsHard;
+    //[SerializeField]
+    //private GameObject[] m_highScoreObjectsHard;
 
-    [SerializeField]
-    private Text m_difficultyValue;
+    //[SerializeField]
+    //private Text m_difficultyValue;
 
-    [SerializeField]
-    private Text m_levelValue;
+    //[SerializeField]
+    //private Text m_levelValue;
 
-    [SerializeField]
-    private Button m_normalButton;
+    //[SerializeField]
+    //private Button m_normalButton;
 
-    [SerializeField]
-    private Button m_hardButton;
+    //[SerializeField]
+    //private Button m_hardButton;
 
-    private int m_difficulty = Constants.EASY;
+    //private int m_difficulty = Constants.EASY;
 
-    private int m_level = 1;
+    //private int m_level = 1;
 
     [SerializeField]
     private GameObject[] m_soundButtons;
@@ -103,14 +103,14 @@ public class MainMenu : MonoBehaviour
             GetButton("MusicOffButton").SetActive(false);
         }
 
-        m_highScoreObjectsEasy = new GameObject[Controller.Instance.HighScoreValuesNumber];
-        m_highScoreObjectsNormal = new GameObject[Controller.Instance.HighScoreValuesNumber];
-        m_highScoreObjectsHard = new GameObject[Controller.Instance.HighScoreValuesNumber];
+        //m_highScoreObjectsEasy = new GameObject[Controller.Instance.HighScoreValuesNumber];
+        //m_highScoreObjectsNormal = new GameObject[Controller.Instance.HighScoreValuesNumber];
+        //m_highScoreObjectsHard = new GameObject[Controller.Instance.HighScoreValuesNumber];
     }
 
 
 
-
+    /*
     private void UpdateHighScore()
     {
         List<List<HighScore>> highScoreValues = Controller.Instance.HighScoreValues;
@@ -157,17 +157,54 @@ public class MainMenu : MonoBehaviour
             }
         }
     }
+    */
 
     private void UpdateCurrentLevels()
     {
         int[] completedLevels = Controller.Instance.GetCompletedLevels();
 
-        m_difficultyButtons[0].GetComponentInChildren<Text>().text = "Easy\n" + completedLevels[Constants.EASY].ToString()
+        m_difficultyButtons[Constants.EASY].GetComponentInChildren<Text>().text = "Easy\n" + completedLevels[Constants.EASY].ToString()
             + "/" + Controller.Instance.LevelTurnsList[Constants.EASY].Count.ToString();
-        m_difficultyButtons[1].GetComponentInChildren<Text>().text = "Normal\n" + completedLevels[Constants.NORMAL].ToString()
+        m_difficultyButtons[Constants.NORMAL].GetComponentInChildren<Text>().text = "Normal\n" + completedLevels[Constants.NORMAL].ToString()
             + "/" + Controller.Instance.LevelTurnsList[Constants.NORMAL].Count.ToString();
-        m_difficultyButtons[2].GetComponentInChildren<Text>().text = "Hard\n" + completedLevels[Constants.HARD].ToString()
+        m_difficultyButtons[Constants.HARD].GetComponentInChildren<Text>().text = "Hard\n" + completedLevels[Constants.HARD].ToString()
             + "/" + Controller.Instance.LevelTurnsList[Constants.HARD].Count.ToString();
+
+        Image[] images = m_difficultyButtons[Constants.NORMAL].GetComponentsInChildren<Image>();
+        Image normalButtonDisableImage = null;
+        foreach (Image image in images)
+        {
+            if (image.name == "DisableImage")
+                normalButtonDisableImage = image;
+        }
+        images = m_difficultyButtons[Constants.HARD].GetComponentsInChildren<Image>();
+        Image hardlButtonDisableImage = null;
+        foreach (Image image in images)
+        {
+            if (image.name == "DisableImage")
+                hardlButtonDisableImage = image;
+        }
+
+        if (completedLevels[Constants.EASY] < 15)
+        {
+            m_difficultyButtons[Constants.NORMAL].GetComponent<Button>().interactable = false;
+            normalButtonDisableImage.enabled = true;
+        }
+        else
+        {
+            m_difficultyButtons[Constants.NORMAL].GetComponent<Button>().interactable = true;
+            normalButtonDisableImage.enabled = false;
+        }
+        if (completedLevels[Constants.NORMAL] < 15)
+        {
+            m_difficultyButtons[Constants.HARD].GetComponent<Button>().interactable = false;
+            hardlButtonDisableImage.enabled = true;
+        }
+        else
+        {
+            m_difficultyButtons[Constants.HARD].GetComponent<Button>().interactable = true;
+            hardlButtonDisableImage.enabled = false;
+        }
     }
 
     public void PlayButton()
@@ -218,17 +255,17 @@ public class MainMenu : MonoBehaviour
         m_OptionsWindow.GetComponent<Animator>().SetBool("Opened", true);
     }
 
-    public void HighScoreButton()
-    {
-        m_MainMenuWindow.GetComponent<Animator>().SetBool("Opened", false);
-        m_HighScoreWindow.GetComponent<Animator>().SetBool("Opened", true);
-    }
+    //public void HighScoreButton()
+    //{
+    //    m_MainMenuWindow.GetComponent<Animator>().SetBool("Opened", false);
+    //    m_HighScoreWindow.GetComponent<Animator>().SetBool("Opened", true);
+    //}
 
-    public void CreateLevelButton()
-    {
-        m_MainMenuWindow.GetComponent<Animator>().SetBool("Opened", false);
-        m_CreateLevelWindow.GetComponent<Animator>().SetBool("Opened", true);
-    }
+    //public void CreateLevelButton()
+    //{
+    //    m_MainMenuWindow.GetComponent<Animator>().SetBool("Opened", false);
+    //    m_CreateLevelWindow.GetComponent<Animator>().SetBool("Opened", true);
+    //}
 
 
 
@@ -288,7 +325,7 @@ public class MainMenu : MonoBehaviour
 
 
     // Create Level Window
-
+    /*
     private void UpdateDifficultyAndLevelValues(int difficulty, int level)
     {
         if (difficulty == Constants.EASY)
@@ -349,5 +386,5 @@ public class MainMenu : MonoBehaviour
         DataStore.SaveGame();
         SceneManager.LoadScene(1, LoadSceneMode.Single);
     }
-
+    */
 }

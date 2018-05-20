@@ -222,24 +222,30 @@ public class HUD : MonoBehaviour
         ShowWindow(m_newHighScoreWindow);
     }
 
-    public void NewGame()
-    {
-        if (Controller.Instance.IsNewHighScore(Controller.Instance.Score.CurrentScore, Controller.Instance.Difficulty))
-        {
-            ShowNewHighScoreWindow();
-        }
-        else
-        {
-            HideWindow(m_endGameWindow);
-            Controller.Instance.NewGame();
-            DataStore.SaveGame();
-            UpdateCurrentLevels();
-        }
-    }
+    //public void NewGame()
+    //{
+    //    if (Controller.Instance.IsNewHighScore(Controller.Instance.Score.CurrentScore, Controller.Instance.Difficulty))
+    //    {
+    //        ShowNewHighScoreWindow();
+    //    }
+    //    else
+    //    {
+    //        HideWindow(m_endGameWindow);
+    //        Controller.Instance.NewGame();
+    //        DataStore.SaveGame();
+    //        UpdateCurrentLevels();
+    //    }
+    //}
 
-    public void RestartLevel()
+    //public void RestartLevel()
+    //{
+    //    Controller.Instance.RestartLevel();
+    //}
+
+    public void RestartLevelNew()
     {
-        Controller.Instance.RestartLevel();
+        while (Controller.Instance.TokenGameObjects.Count > 0)
+            UndoTurn();
     }
 
     public void UndoTurn()
@@ -258,26 +264,26 @@ public class HUD : MonoBehaviour
         Application.Quit();
     }
 
-    public void Next()
-    {
-        StopCoroutine(coroutine);
-        CountScoreIfBreak();
-        HideWindow(m_levelCompletedWindow);
-        UpdateCurrentLevels();
-        DataStore.SaveGame();
-        StartCoroutine(WaitBeforeInitializeLevel(0.35f));
-        //Controller.Instance.InitializeLevel();
-    }
+    //public void Next()
+    //{
+    //    StopCoroutine(coroutine);
+    //    CountScoreIfBreak();
+    //    HideWindow(m_levelCompletedWindow);
+    //    UpdateCurrentLevels();
+    //    DataStore.SaveGame();
+    //    StartCoroutine(WaitBeforeInitializeLevel(0.35f));
+    //    //Controller.Instance.InitializeLevel();
+    //}
     
-    private IEnumerator WaitBeforeInitializeLevel(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        Controller.Instance.InitializeLevel();
-    }
+    //private IEnumerator WaitBeforeInitializeLevel(float delay)
+    //{
+    //    yield return new WaitForSeconds(delay);
+    //    Controller.Instance.InitializeLevel();
+    //}
 
 
 
-
+    /*
     private IEnumerator Count (int to, float delayMax, float delayMin)
     {
         m_turnsBonus = Controller.Instance.Level.Turns;
@@ -327,7 +333,7 @@ public class HUD : MonoBehaviour
         m_turnsBonus = 0;
         m_turnsBonus = 0;
     }
-
+    */
    
 
 
@@ -362,6 +368,7 @@ public class HUD : MonoBehaviour
         SceneManager.LoadScene(0, LoadSceneMode.Single);
     }
 
+    /*
     public void MainMenuAfterWin()
     {
         HideWindow(m_winGameWindow);
@@ -373,6 +380,7 @@ public class HUD : MonoBehaviour
         //UpdateCurrentLevels();
         
     }
+    */
 
     public void HideOptionsWindow()
     {
@@ -433,27 +441,27 @@ public class HUD : MonoBehaviour
     }
 
 
-    public void OnEndEditNewHighScore()
-    {
-        HideWindow(m_newHighScoreWindow);
-        string name = m_newHighScoreWindow.transform.Find("InputField").Find("Text").GetComponent<Text>().text;
+    //public void OnEndEditNewHighScore()
+    //{
+    //    HideWindow(m_newHighScoreWindow);
+    //    string name = m_newHighScoreWindow.transform.Find("InputField").Find("Text").GetComponent<Text>().text;
 
-        Controller.Instance.AddHighScoreValue(Controller.Instance.Score.CurrentScore, name, Controller.Instance.Difficulty);
-        Controller.Instance.NewGame();
-        DataStore.SaveGame();
-    }
+    //    Controller.Instance.AddHighScoreValue(Controller.Instance.Score.CurrentScore, name, Controller.Instance.Difficulty);
+    //    Controller.Instance.NewGame();
+    //    DataStore.SaveGame();
+    //}
 
-    private void UpdateCurrentLevels()
-    {
-        //int difficulty = Controller.Instance.Difficulty;
+    //private void UpdateCurrentLevels()
+    //{
+    //    //int difficulty = Controller.Instance.Difficulty;
 
-        //if (difficulty == Constants.EASY)
-        //    Controller.Instance.CurrentLevelEasy = Controller.Instance.CurrentLevel;
-        //if (difficulty == Constants.NORMAL)
-        //    Controller.Instance.CurrentLevelNormal = Controller.Instance.CurrentLevel;
-        //if (difficulty == Constants.HARD)
-        //    Controller.Instance.CurrentLevelHard = Controller.Instance.CurrentLevel;
-    }
+    //    //if (difficulty == Constants.EASY)
+    //    //    Controller.Instance.CurrentLevelEasy = Controller.Instance.CurrentLevel;
+    //    //if (difficulty == Constants.NORMAL)
+    //    //    Controller.Instance.CurrentLevelNormal = Controller.Instance.CurrentLevel;
+    //    //if (difficulty == Constants.HARD)
+    //    //    Controller.Instance.CurrentLevelHard = Controller.Instance.CurrentLevel;
+    //}
 
     public void TapToClose()
     {
@@ -467,11 +475,12 @@ public class HUD : MonoBehaviour
         m_starIndicator.SetActive(true);
         level--;
 
-        Image[] stars = m_starIndicator.GetComponentsInChildren<Image>();
-        for (int i = 0; i < stars.Length; i++)
+        Image[] objects = m_starIndicator.GetComponentsInChildren<Image>();
+
+        foreach (Image obj in objects)
         {
-            if (i != 0)
-                Destroy(stars[i].gameObject);
+            if (obj.name == "CoinHUD" || obj.name == "CoinHUD(Clone)")
+                Destroy(obj.gameObject);
         }
 
         CreateStars(m_starIndicator, level, difficulty);
@@ -480,9 +489,16 @@ public class HUD : MonoBehaviour
     private void CreateStars(GameObject starIndicator, int level, int difficulty)
     {
         RectTransform[] points = starIndicator.GetComponentsInChildren<RectTransform>();
+        float startPoint = 0;
+        float endPoint = 0;
+        foreach (RectTransform point in points)
+        {
+            if (point.name == "StartPoint")
+                startPoint = point.position.x;
+            if (point.name == "EndPoint")
+                endPoint = point.position.x;
+        }
 
-        float startPoint = points[1].position.x;
-        float endPoint = points[2].position.x;
         float starIndicatorLength = Controller.Instance.LevelTurnsList[difficulty][level].OneStar;
 
         float[] starPositions = new float[3];
@@ -493,11 +509,13 @@ public class HUD : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             starPositions[i] = starIndicatorLength - starPositions[i];
+            //starPositions[i] += 0.5f;
             starPositions[i] = Mathf.InverseLerp(0, starIndicatorLength, starPositions[i]);
             starPositions[i] = Mathf.Lerp(startPoint, endPoint, starPositions[i]);
 
             Vector3 starPosition = starIndicator.transform.position;
             starPosition.x = starPositions[i];
+            starPosition.y += 0.02f;
 
             GameObject star = Instantiate(Resources.Load("Prefabs/CoinHUD") as GameObject, starPosition, Quaternion.identity) as GameObject;
             //star.GetComponent<Animator>().SetBool("Enabled", true);
@@ -521,19 +539,23 @@ public class HUD : MonoBehaviour
         {
             if (turns == starIndicatorLength - Controller.Instance.LevelTurnsList[difficulty][level].ThreeStars)
                 starAnimators[2].SetBool("Disabled", false);
-            if (turns == starIndicatorLength - Controller.Instance.LevelTurnsList[difficulty][level].TwoStars)
+            else if (turns == starIndicatorLength - Controller.Instance.LevelTurnsList[difficulty][level].TwoStars)
                 starAnimators[1].SetBool("Disabled", false);
-            if (turns == starIndicatorLength - Controller.Instance.LevelTurnsList[difficulty][level].OneStar)
+            else if (turns == starIndicatorLength - Controller.Instance.LevelTurnsList[difficulty][level].OneStar)
                 starAnimators[0].SetBool("Disabled", false);
         }
         else
         {
             if (turns == starIndicatorLength - Controller.Instance.LevelTurnsList[difficulty][level].ThreeStars - 1)
                 starAnimators[2].SetBool("Disabled", true);
-            if (turns == starIndicatorLength - Controller.Instance.LevelTurnsList[difficulty][level].TwoStars - 1)
+            else if (turns == starIndicatorLength - Controller.Instance.LevelTurnsList[difficulty][level].TwoStars - 1)
                 starAnimators[1].SetBool("Disabled", true);
-            if (turns == starIndicatorLength - Controller.Instance.LevelTurnsList[difficulty][level].OneStar - 1)
+            //else if (turns == starIndicatorLength - Controller.Instance.LevelTurnsList[difficulty][level].OneStar - 1)
+            //    starAnimators[0].SetBool("Disabled", true);
+            if (turns == 0 && Controller.Instance.IsAllTokensConnected() == false)
                 starAnimators[0].SetBool("Disabled", true);
+            
+
         }
     }
 

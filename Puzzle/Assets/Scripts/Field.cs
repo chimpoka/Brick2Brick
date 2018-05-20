@@ -85,7 +85,7 @@ public class Field : MonoBehaviour
     public static Field CreateNormalMode(int level, int difficulty)
     {
         List<List<int[,]>> MatrixesList = Controller.Instance.Matrixes;
-        List<List<LevelTurns>> LevelTurnsList = Controller.Instance.LevelTurnsList;
+        //List<List<LevelTurns>> LevelTurnsList = Controller.Instance.LevelTurnsList;
         List<int[,]> Matrixes = new List<int[,]>();
 
         Matrixes = MatrixesList[difficulty];
@@ -152,59 +152,59 @@ public class Field : MonoBehaviour
         }
     }
 
-    private void CreateStarIndicator(int size, int level, int difficulty)
-    {
-        Vector3 starIndicatorPosition = Vector3.zero;
+    //private void CreateStarIndicator(int size, int level, int difficulty)
+    //{
+    //    Vector3 starIndicatorPosition = Vector3.zero;
         
-        if (size % 2 == 0)
-        {
-            starIndicatorPosition = new Vector3(0.5f, 0.5f, 0.0f);
-        }
-        starIndicatorPosition.y += size * 0.56f;
+    //    if (size % 2 == 0)
+    //    {
+    //        starIndicatorPosition = new Vector3(0.5f, 0.5f, 0.0f);
+    //    }
+    //    starIndicatorPosition.y += size * 0.56f;
 
-        GameObject starIndicator = Instantiate(Resources.Load("Prefabs/StarIndicator") as GameObject, starIndicatorPosition, Quaternion.identity) as GameObject;
+    //    GameObject starIndicator = Instantiate(Resources.Load("Prefabs/StarIndicator") as GameObject, starIndicatorPosition, Quaternion.identity) as GameObject;
 
-        Vector3 scale = Vector3.one * size;
-        scale.z = 1;
-        scale.x = 0.24f;
-        scale.y = 0.008f;
-        starIndicator.transform.localScale = scale * size / 3;
+    //    Vector3 scale = Vector3.one * size;
+    //    scale.z = 1;
+    //    scale.x = 0.24f;
+    //    scale.y = 0.008f;
+    //    starIndicator.transform.localScale = scale * size / 3;
 
-        CreateStars(starIndicator, level, difficulty, size);
-    }
+    //    CreateStars(starIndicator, level, difficulty, size);
+    //}
 
-    private void CreateStars(GameObject starIndicator, int level, int difficulty, int size)
-    {
+    //private void CreateStars(GameObject starIndicator, int level, int difficulty, int size)
+    //{
         
-        Transform[] points = starIndicator.GetComponentsInChildren<Transform>();
+    //    Transform[] points = starIndicator.GetComponentsInChildren<Transform>();
 
-        float startPoint = points[1].position.x;
-        float endPoint = points[2].position.x;
-        float starIndicatorLength = Controller.Instance.LevelTurnsList[difficulty][level].OneStar;
+    //    float startPoint = points[1].position.x;
+    //    float endPoint = points[2].position.x;
+    //    float starIndicatorLength = Controller.Instance.LevelTurnsList[difficulty][level].OneStar;
 
-        float[] starPositions = new float[3];
-        starPositions[0] = Controller.Instance.LevelTurnsList[difficulty][level].OneStar;
-        starPositions[1] = Controller.Instance.LevelTurnsList[difficulty][level].TwoStars;
-        starPositions[2] = Controller.Instance.LevelTurnsList[difficulty][level].ThreeStars;
+    //    float[] starPositions = new float[3];
+    //    starPositions[0] = Controller.Instance.LevelTurnsList[difficulty][level].OneStar;
+    //    starPositions[1] = Controller.Instance.LevelTurnsList[difficulty][level].TwoStars;
+    //    starPositions[2] = Controller.Instance.LevelTurnsList[difficulty][level].ThreeStars;
 
-        for (int i = 0; i < 3; i++)
-        {
-            starPositions[i] = starIndicatorLength - starPositions[i];
-            starPositions[i] = Mathf.InverseLerp(0, starIndicatorLength, starPositions[i]);
-            starPositions[i] = Mathf.Lerp(startPoint, endPoint, starPositions[i]);
+    //    for (int i = 0; i < 3; i++)
+    //    {
+    //        starPositions[i] = starIndicatorLength - starPositions[i];
+    //        starPositions[i] = Mathf.InverseLerp(0, starIndicatorLength, starPositions[i]);
+    //        starPositions[i] = Mathf.Lerp(startPoint, endPoint, starPositions[i]);
 
-            Vector3 starPosition = starIndicator.transform.position;
-            starPosition.x = starPositions[i];
+    //        Vector3 starPosition = starIndicator.transform.position;
+    //        starPosition.x = starPositions[i];
 
-            GameObject star = Instantiate(Resources.Load("Prefabs/Coin") as GameObject, starPosition, Quaternion.identity) as GameObject;
+    //        GameObject star = Instantiate(Resources.Load("Prefabs/Coin") as GameObject, starPosition, Quaternion.identity) as GameObject;
 
-            Vector3 scale = star.transform.localScale;
+    //        Vector3 scale = star.transform.localScale;
 
-            Debug.Log(star.transform.localScale);
-            star.transform.localScale = scale * size / 3;
-            Debug.Log(star.transform.localScale);
-        }
-    }
+    //        Debug.Log(star.transform.localScale);
+    //        star.transform.localScale = scale * size / 3;
+    //        Debug.Log(star.transform.localScale);
+    //    }
+    //}
 
     #endregion
 

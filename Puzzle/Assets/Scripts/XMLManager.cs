@@ -5,6 +5,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
 using System;
+using System.Text.RegularExpressions;
 
 public class XMLManager : MonoBehaviour
 {
@@ -55,6 +56,15 @@ public class XMLManager : MonoBehaviour
     //    StreamWriter writer = new StreamWriter(Application.dataPath + "/StreamingAssets/Matrixes.txt", true);
     //}
 
+    private void ReadFromScript()
+    {
+        string[] lines = Matrixes.matrixes.Split('\n');
+        m_lines = new List<string>();
+
+        foreach (String line in lines)
+            m_lines.Add(line);
+    }
+
     private void ReadTxt()
     {
         StreamReader stream = new StreamReader(Application.dataPath + "/StreamingAssets/Matrixes.txt");
@@ -63,13 +73,15 @@ public class XMLManager : MonoBehaviour
 
         while ((line = stream.ReadLine()) != null)
         {
+            Debug.Log(line);
             m_lines.Add(line);
         }
     }
 
     public void GetDataFromTxt(List<List<int[,]>> matrixes, List<List<LevelTurns>> levelTurnsList)
     {
-        ReadTxt();
+        //ReadTxt();
+        ReadFromScript();
         
         int startCount = 0, levelsCount = 0;
         int difficulty = Constants.EASY - 1;
