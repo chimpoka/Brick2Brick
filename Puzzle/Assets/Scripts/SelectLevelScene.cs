@@ -69,7 +69,7 @@ public class SelectLevelScene : MonoBehaviour
         }
 
         Color enabled = new Color(1, 1, 1, 1);
-        Color disabled = new Color(1, 1, 1, 40f/255);
+        Color disabled = new Color(1, 1, 1, 0/*40f/255*/);
 
         if (Controller.Instance.LevelStars[Controller.Instance.Difficulty][level] == 3)
         {
