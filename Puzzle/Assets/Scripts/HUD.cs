@@ -616,8 +616,6 @@ public class HUD : MonoBehaviour
         Color enabled = new Color(1, 1, 1, 1);
         Color disabled = new Color(1, 1, 1, 40f / 255);
 
-        Debug.Log(starsCount);
-
         if (starsCount == 3)
         {
             foreach (var star in stars)
