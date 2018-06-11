@@ -21,6 +21,9 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private GameObject m_OptionsWindow;
 
+    [SerializeField]
+    private GameObject m_HelpWindow;
+
     //[SerializeField]
     //private GameObject m_CreateLevelWindow;
 
@@ -264,6 +267,18 @@ public class MainMenu : MonoBehaviour
     {
         m_MainMenuWindow.GetComponent<Animator>().SetBool("Opened", false);
         m_OptionsWindow.GetComponent<Animator>().SetBool("Opened", true);
+    }
+
+    public void HelpButton()
+    {
+        m_MainMenuWindow.GetComponent<Animator>().SetBool("Opened", false);
+        m_HelpWindow.GetComponent<Animator>().SetBool("Opened", true);
+    }
+
+    public void OkButton()
+    {
+        m_HelpWindow.GetComponent<Animator>().SetBool("Opened", false);
+        m_MainMenuWindow.GetComponent<Animator>().SetBool("Opened", true);
     }
 
     //public void HighScoreButton()

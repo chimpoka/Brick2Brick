@@ -127,8 +127,8 @@ public class Controller : MonoBehaviour
         }
     }
 
-    public List<int> x;
-    public List<int> y;
+    //public List<int> x;
+    //public List<int> y;
 
     #endregion
 
@@ -313,7 +313,15 @@ public class Controller : MonoBehaviour
             {
                 Destroy(Field.gameObject);
                 int stars = CountStars(CurrentLevel, Difficulty);
-                HUD.Instance.ShowLevelCompletedNormalModeWindow(stars);
+
+                int[] completedLevels = GetCompletedLevels();
+                if (Difficulty == Constants.EASY && completedLevels[Constants.EASY] == 15 && completedLevels[Constants.NORMAL] == 0)
+                    HUD.Instance.ShowOpenNormalDifficultyWindow();
+                else if (Difficulty == Constants.NORMAL && completedLevels[Constants.NORMAL] == 15 && completedLevels[Constants.HARD] == 0)
+                    HUD.Instance.ShowOpenHardDifficultyWindow();
+                else
+                    HUD.Instance.ShowLevelCompletedNormalModeWindow(stars);
+
                 //CompletedLevels[Difficulty]++;  
             }
             else
@@ -608,16 +616,16 @@ public class Controller : MonoBehaviour
 
     //}
 
-    private void EndGame()
-    {
-       // XMLManager.Instance.SaveData(Difficulty.ToString(), CurrentLevel, Level.MaxTurns - Level.Turns, Level.MaxTurns, true);
-       // XMLManager.Instance.SaveData2(Level.FieldSize, Level.FreeSpace, Level.TokenTypes, Level.MaxTurns - Level.Turns, Level.MaxTurns, true);
+    //private void EndGame()
+    //{
+    //   // XMLManager.Instance.SaveData(Difficulty.ToString(), CurrentLevel, Level.MaxTurns - Level.Turns, Level.MaxTurns, true);
+    //   // XMLManager.Instance.SaveData2(Level.FieldSize, Level.FreeSpace, Level.TokenTypes, Level.MaxTurns - Level.Turns, Level.MaxTurns, true);
     
-        //AddHighScoreValue(Score.CurrentScore, Score.Name, Difficulty);
-        CurrentLevel = 1;
-        DataStore.SaveGame();
-        Destroy(Field.gameObject);
-    }
+    //    //AddHighScoreValue(Score.CurrentScore, Score.Name, Difficulty);
+    //    CurrentLevel = 1;
+    //    DataStore.SaveGame();
+    //    Destroy(Field.gameObject);
+    //}
 
     private int CountStars(int level, int difficulty)
     {

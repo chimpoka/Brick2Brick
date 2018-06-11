@@ -76,6 +76,12 @@ public class HUD : MonoBehaviour
     [SerializeField]
     private GameObject m_levelLostNormalModeWindow;
 
+    [SerializeField]
+    private GameObject m_openNormalDifficultyWindow;
+
+    [SerializeField]
+    private GameObject m_openHardDifficultyWindow;
+
 
 
     public static HUD Instance { get { return m_instance; } }
@@ -197,30 +203,52 @@ public class HUD : MonoBehaviour
         window.GetComponent<Animator>().SetBool("Open", false);
     }
 
-    public void ShowEndGameWindow()
+    public void ShowOpenNormalDifficultyWindow()
     {
-        ShowWindow(m_endGameWindow);
+        ShowWindow(m_openNormalDifficultyWindow);
     }
 
-    public void ShowLevelCompletedWindow()
+    public void ShowOpenHardDifficultyWindow()
     {
-        ShowWindow(m_levelCompletedWindow);
+        ShowWindow(m_openHardDifficultyWindow);
     }
 
-    public void ShowWinGameWindow()
+    public void onOpenNormalDifficultyWindowClick()
     {
-        ShowWindow(m_winGameWindow);
+        HideWindow(m_openNormalDifficultyWindow);
+        ShowLevelCompletedNormalModeWindow(Controller.Instance.LevelStars[Constants.EASY][Controller.Instance.CurrentLevel - 1]);
     }
 
-    public void ShowWinGameLastDifficultyWindow()
+    public void onOpenHardDifficultyWindowClick()
     {
-        ShowWindow(m_winGameLastDifficultyWindow);
+        HideWindow(m_openHardDifficultyWindow);
+        ShowLevelCompletedNormalModeWindow(Controller.Instance.LevelStars[Constants.NORMAL][Controller.Instance.CurrentLevel - 1]);
     }
 
-    public void ShowNewHighScoreWindow()
-    {
-        ShowWindow(m_newHighScoreWindow);
-    }
+    //public void ShowEndGameWindow()
+    //{
+    //    ShowWindow(m_endGameWindow);
+    //}
+
+    //public void ShowLevelCompletedWindow()
+    //{
+    //    ShowWindow(m_levelCompletedWindow);
+    //}
+
+    //public void ShowWinGameWindow()
+    //{
+    //    ShowWindow(m_winGameWindow);
+    //}
+
+    //public void ShowWinGameLastDifficultyWindow()
+    //{
+    //    ShowWindow(m_winGameLastDifficultyWindow);
+    //}
+
+    //public void ShowNewHighScoreWindow()
+    //{
+    //    ShowWindow(m_newHighScoreWindow);
+    //}
 
     //public void NewGame()
     //{
