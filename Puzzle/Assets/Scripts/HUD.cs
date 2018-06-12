@@ -171,18 +171,18 @@ public class HUD : MonoBehaviour
     {      
 
         m_levelValues[0].text = value.ToString() + "/" + Controller.Instance.LevelTurnsList[Controller.Instance.Difficulty].Count.ToString();
-        m_levelValues[1].text = "Level " + value.ToString();
-        m_levelValues[2].text = "Level " + value.ToString();
+        m_levelValues[1].text = "Уровень " + value.ToString();
+        m_levelValues[2].text = "Уровень " + value.ToString();
     }
 
     public void UpdateDifficultyValue(int value)
     {
         if (value == Constants.EASY)
-            m_difficultyValue.text = "Easy";
+            m_difficultyValue.text = "Легкий";
         if (value == Constants.NORMAL)
-            m_difficultyValue.text = "Normal";
+            m_difficultyValue.text = "Средний";
         if (value == Constants.HARD)
-            m_difficultyValue.text = "Hard";
+            m_difficultyValue.text = "Сложный";
     }
 
     public void UpdateScoreValue(int value)

@@ -177,11 +177,11 @@ public class MainMenu : MonoBehaviour
     {
         int[] completedLevels = Controller.Instance.GetCompletedLevels();
 
-        m_difficultyButtons[Constants.EASY].GetComponentInChildren<Text>().text = "Easy\n" + completedLevels[Constants.EASY].ToString()
+        m_difficultyButtons[Constants.EASY].GetComponentInChildren<Text>().text = "Легкий\n" + completedLevels[Constants.EASY].ToString()
             + "/" + Controller.Instance.LevelTurnsList[Constants.EASY].Count.ToString();
-        m_difficultyButtons[Constants.NORMAL].GetComponentInChildren<Text>().text = "Normal\n" + completedLevels[Constants.NORMAL].ToString()
+        m_difficultyButtons[Constants.NORMAL].GetComponentInChildren<Text>().text = "Средний\n" + completedLevels[Constants.NORMAL].ToString()
             + "/" + Controller.Instance.LevelTurnsList[Constants.NORMAL].Count.ToString();
-        m_difficultyButtons[Constants.HARD].GetComponentInChildren<Text>().text = "Hard\n" + completedLevels[Constants.HARD].ToString()
+        m_difficultyButtons[Constants.HARD].GetComponentInChildren<Text>().text = "Сложный\n" + completedLevels[Constants.HARD].ToString()
             + "/" + Controller.Instance.LevelTurnsList[Constants.HARD].Count.ToString();
 
         Image[] images = m_difficultyButtons[Constants.NORMAL].GetComponentsInChildren<Image>();
